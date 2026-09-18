@@ -1,0 +1,8 @@
+@for (student of TabStudent(); track student.id) {
+
+    <app-student-card [student]="student" (remove)="removeStudent($event)"></app-student-card>
+}@empty {
+    <p>no elementy</p>
+}
+
+<button type="button" (click)="addStudent()">add student</button>
