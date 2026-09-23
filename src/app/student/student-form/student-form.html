@@ -1,0 +1,20 @@
+<form>
+
+
+    <label for="student-firstname">Prenom </label>
+
+    <input 
+        id="student-firstname"
+        [formField]="editorForm.firstName"
+        [attr.aria-invalid]="editorForm.firstName().invalid() && editorForm.firstName().touched()? 'true': null"
+        [attr.aria-describedby]="editorForm.firstName().invalid() && editorForm.firstName().touched()? 'firstName-errors': null"
+        >
+    @if(editorForm.firstName().touched() && editorForm.firstName().invalid()){
+        @for(error of editorForm.firstName().errors(); track error.kind){
+            <li>{{error.message}}</li>
+        }
+    }
+
+</form>
+
+<p>{{model().firstName}}</p>

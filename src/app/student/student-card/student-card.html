@@ -1,15 +1,14 @@
-<article [class.highlight]="isFinalYear()">
+<article >
     <h2>{{ student().firstName | uppercase}}  {{student().name | uppercase}}</h2>
-    <p>le programme est {{student().program}}{{student().programYear}}</p>
+    <p>le programme est {{student().program}}</p>
 
 
-    <p>le prix est {{student().price | currency:'euro'}}</p>
 
     
     <app-counter-component></app-counter-component>
 
 
-    <button (click)="clicker()"> selectionner</button> 
+    <button> selectionner</button> 
 
     <select (change)="onChange($event)">
         <option value="2026">2026</option>

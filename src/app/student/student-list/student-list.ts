@@ -20,8 +20,6 @@ removeStudent(id:number) :void{
     firstName: 'A',
     name: 'a',
     program: 'Aa',
-    programYear: 4,
-    price: 2,
     graduationYear: 0
   }
     b: Student = {
@@ -29,8 +27,6 @@ removeStudent(id:number) :void{
     firstName: 'B',
     name: 'b',
     program: 'BB',
-    programYear: 1,
-    price: 2,
     graduationYear: 0
   }
     c: Student = {
@@ -38,8 +34,6 @@ removeStudent(id:number) :void{
     firstName: '',
     name: '',
     program: '',
-    programYear: 1,
-    price: 2,
     graduationYear: 3
   }
   TabStudent = signal<Student[]>([this.a, this.b, this.c]);
@@ -51,8 +45,6 @@ removeStudent(id:number) :void{
       firstName: 'default ',
       name: ' name ',
       program: '',
-      programYear: 1,
-      price: 0,
       graduationYear: 0,
     };
 

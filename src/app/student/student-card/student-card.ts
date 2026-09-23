@@ -4,7 +4,7 @@ import { Student } from '../student';
 import { CounterComponent } from '../counter-component/counter-component';
 
 @Component({
-  imports: [UpperCasePipe, CurrencyPipe, CounterComponent],
+  imports: [UpperCasePipe, CounterComponent],
   selector: 'app-student-card',
   styleUrl: './student-card.css',
   templateUrl: './student-card.html',
@@ -21,17 +21,7 @@ export class StudentCard {
 
 
 }
-  clicker(): void {
-    if (this.student().programYear == 3) this.student().programYear = 2;
-    else this.student().programYear = 3
-  }
 
-
-
-  isFinalYear(): boolean {
-    return this.student().programYear === 3;
-  
-  }
 
 
   readonly currentYear  = new Date().getFullYear();

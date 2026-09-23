@@ -3,8 +3,6 @@ export interface Student {
     firstName: string
     name : string
     program : string
-    programYear : number
-    price : number
     graduationYear:  number
 
 
