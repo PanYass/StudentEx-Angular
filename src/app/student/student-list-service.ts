@@ -1,14 +1,14 @@
-import { computed, Service, signal } from "@angular/core";
+import { computed, Injectable, signal } from '@angular/core';
 import { Student } from "./student";
 
 
-@Service()
+@Injectable({ providedIn: 'root' })
 export class StudentListService {
 removeStudent(id:number) :boolean{
 
     const exists = this._students().some(s=> s.id==id)
     if(!exists)  return false
-    this._students.update((items: any[])=>items.filter(student=>student.id!=id))
+    this._students.update(items => items.filter(student => student.id !== id))
     return true
 }
 
@@ -39,20 +39,36 @@ removeStudent(id:number) :boolean{
   //the 2nd we prohibit we from using even set and update, changing la valeur, type valeur
   readonly studentCount = computed(()=>this._students().length)
 
+  add(draft: Omit<Student, 'id'>): Student {
+    const student: Student = { id: this.nextId(), ...draft };
+    this._students.update(students => [...students, student]);
+    return student;
+  }
+
+  update(student: Student): boolean {
+    let updated = false;
+    this._students.update(students => students.map(current => {
+      if (current.id !== student.id) return current;
+      updated = true;
+      return student;
+    }));
+    return updated;
+  }
+
 
   addStudent():void {
-    const student: Student = {
-      id: this._students().length,
-
+    this.add({
       firstName: 'default ',
       name: ' name ',
       program: '',
       graduationYear: 0,
-    };
-
-    this._students.update(students => [...students, student]);
+    });
 
 
+  }
+
+  private nextId(): number {
+    return this._students().reduce((maxId, student) => Math.max(maxId, student.id), -1) + 1;
   }
 
 

@@ -1,11 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HelloStudent } from './student/hello-student/hello-student';
-import { StudentCard } from './student/student-card/student-card';
-import { StudentList } from './student/student-list/student-list';
-import { StudentForm } from './student/student-form/student-form';
+import { StudentCycleBug } from './student/provided/student-cycle-bug';
 @Component({
-  imports: [RouterOutlet, StudentList, StudentForm],
+  imports: [RouterOutlet, StudentCycleBug],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

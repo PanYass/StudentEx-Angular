@@ -15,6 +15,17 @@
         }
     }
 
-</form>
 
-<p>{{model().firstName}}</p>
+
+    <label for="student-program">Program</label>
+    <input 
+    id="student-program"
+    [formField]="editorForm.program"
+    [attr.aria-invalid]="editorForm.program().invalid() && editorForm.program().touched()? true: null"
+    [attr.aria-describedby]="editorForm.program().invalid() && editorForm.program().touched()? 'program-errors': null"
+    
+    >
+
+
+
+    

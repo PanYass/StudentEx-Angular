@@ -1,0 +1,103 @@
+<section aria-labelledby="student-list-title">
+  <h2 id="student-list-title">Étudiants</h2>
+  @for (student of service.students(); track student.id) {
+    <article>
+      <h3>{{ student.firstName }} {{ student.name }}</h3>
+      <p>{{ student.program }} - Diplôme : {{ student.graduationYear }}</p>
+      <button type="button" (click)="startEdit(student)">Modifier</button>
+    </article>
+  } @empty {
+    <p>Aucun étudiant.</p>
+  }
+
+  <button type="button" (click)="startCreate()">Nouvel étudiant</button>
+</section>
+
+@if (editorVisible()) {
+<h2>{{ selectedId() === null ? 'Création' : 'Modification' }}</h2>
+<form (submit)="onSubmit($event)" novalidate>
+
+  <fieldset [disabled]="editorForm().submitting()">
+  <legend>Données éditables</legend>
+  
+  <label for="student-firstname">Prénom</label>
+  <input id="student-firstname" type="text" 
+    [formField]="editorForm.firstName"
+    [attr.aria-invalid]="editorForm.firstName().touched() && editorForm.firstName().invalid() ? 'true' : null"
+    [attr.aria-describedby]="editorForm.firstName().touched() && editorForm.firstName().invalid() ? 'student-firstname-errors' : null"
+  >
+  
+  
+  @if (editorForm.firstName().touched() && editorForm.firstName().invalid()) {
+    <ul id="student-firstname-errors">
+      @for (error of editorForm.firstName().errors(); track error.kind) { <li>{{ error.message }}</li> }
+    </ul>
+  }
+
+
+
+  <label for="student-name">Nom</label>
+  <input id="student-name" type="text" 
+    [formField]="editorForm.name"
+    [attr.aria-invalid]="editorForm.name().touched() && editorForm.name().invalid() ? 'true' : null"
+    [attr.aria-describedby]="editorForm.name().touched() && editorForm.name().invalid() ? 'student-name-errors' : null"
+  >
+
+  @if (editorForm.name().touched() && editorForm.name().invalid()) {
+    <ul id="student-name-errors">
+      @for (error of editorForm.name().errors(); track error.kind) { <li>{{ error.message }}</li> }
+    </ul>
+  }
+
+
+  <label for="student-program">Formation</label>
+  <input id="student-program" type="text" 
+    [formField]="editorForm.program"
+    [attr.aria-invalid]="editorForm.program().touched() && editorForm.program().invalid() ? 'true' : null"
+    [attr.aria-describedby]="editorForm.program().touched() && editorForm.program().invalid() ? 'student-program-errors' : null"
+  >
+  
+  
+  @if (editorForm.program().touched() && editorForm.program().invalid()) {
+    <ul id="student-program-errors">
+      @for (error of editorForm.program().errors(); track error.kind) { <li>{{ error.message }}</li> }
+    </ul>
+  }
+
+
+
+  <label for="student-graduationYear">Année de diplôme</label>
+  <input id="student-graduationYear" type="number" step="any"
+    [formField]="editorForm.graduationYear"
+    [attr.aria-invalid]="editorForm.graduationYear().touched() && editorForm.graduationYear().invalid() ? 'true' : null"
+    [attr.aria-describedby]="editorForm.graduationYear().touched() && editorForm.graduationYear().invalid() ? 'student-graduationYear-errors' : null"
+  >
+  
+  
+  
+  @if (editorForm.graduationYear().touched() && editorForm.graduationYear().invalid()) {
+    <ul id="student-graduationYear-errors">
+      @for (error of editorForm.graduationYear().errors(); track error.kind) { <li>{{ error.message }}</li> }
+    </ul>
+  }
+
+
+  <button type="submit">{{ editorForm().submitting() ? 'Enregistrement…' : 'Enregistrer' }}</button>
+ 
+  <button type="button" (click)="startCreate()">Nouvelle création</button>
+ 
+  <button type="button" (click)="cancel()">Annuler</button>
+  </fieldset>
+
+
+
+ @for (error of editorForm().errors(); track error.kind) { <p class="error">{{ error.message }}</p> }
+</form>
+
+
+
+<p role="status">{{ statusMessage() }}</p>
+<p>Aperçu du brouillon : {{ model() | json }}</p>
+
+<p>Observation pédagogique — valide : {{ editorForm().valid() }} ; touché : {{ editorForm().touched() }} ; modifié : {{ editorForm().dirty() }}</p>
+}
